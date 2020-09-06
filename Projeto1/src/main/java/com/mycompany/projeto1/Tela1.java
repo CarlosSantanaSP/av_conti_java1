@@ -5,12 +5,9 @@
  */
 package com.mycompany.projeto1;
 
-//import java.awt.Color;
-import java.util.ArrayList;
-
 /**
  *
- * @author Aluno
+ * @author Carlos Santana
  */
 public class Tela1 extends javax.swing.JFrame {
 
@@ -20,7 +17,28 @@ public class Tela1 extends javax.swing.JFrame {
     public Tela1() {
         initComponents();
     }
+    
+    Integer run_counts = 0;
+    
+    Double min_cpu = 1.0;
+    Double max_cpu = 2.4;
+    Double min_disk = 40.0;
+    Double max_disk = 224.0;
+    Double min_memory = 1.8;
+    Double max_memory = 7.9;
+        
+    Double top_value_memory = 0.0;       
+    Double bottom_value_memory =  max_memory;        
+    Double top_value_cpu = 0.0;
+    Double bottom_value_cpu =  max_cpu;
+    Double top_value_disk = 0.0;
+    Double bottom_value_disk =  max_disk;
+    
+    Double total_memory = 0.0;
+    Double total_cpu = 0.0;
+    Double total_disk = 0.0;
 
+           
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,7 +126,7 @@ public class Tela1 extends javax.swing.JFrame {
         });
 
         lb_title.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lb_title.setText("Gerenciador de Tarefas");
+        lb_title.setText("Monitor de Hardware");
 
         jLabel1.setText("CPU: Intel(R) Core(TM) i3-3110M CPU @ 2.40GHz");
 
@@ -126,15 +144,15 @@ public class Tela1 extends javax.swing.JFrame {
         jLabel4.setText("% de utilização");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Máximo:");
+        jLabel8.setText("Maior valor:");
 
         lb_max_value_cpu.setText("0.0");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("Média:");
+        jLabel10.setText("Valor de Média:");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("Mínimo:");
+        jLabel11.setText("Menor valor:");
 
         lb_min_value_cpu.setText("0.0");
 
@@ -159,15 +177,14 @@ public class Tela1 extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lb_avg_value_cpu))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lb_min_value_cpu))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(18, 18, 18)
-                            .addComponent(lb_max_value_cpu))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lb_min_value_cpu))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(lb_max_value_cpu)))
                 .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
@@ -202,17 +219,17 @@ public class Tela1 extends javax.swing.JFrame {
         lb_disk.setText("% da capacidade");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Máximo:");
+        jLabel9.setText("Maior valor:");
 
         lb_max_value_disk.setText("0.0");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Mínimo:");
+        jLabel12.setText("Menor valor:");
 
         lb_min_value_disk.setText("0.0");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Média:");
+        jLabel13.setText("Valor de Média:");
 
         lb_avg_value_disk.setText("0.0");
 
@@ -283,17 +300,17 @@ public class Tela1 extends javax.swing.JFrame {
         lb_memory.setText("% de uso da memória");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Máximo:");
+        jLabel14.setText("Maior valor:");
 
         lb_max_value_memory.setText("0.0");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setText("Mínimo:");
+        jLabel15.setText("Menor valor:");
 
         lb_min_value_memory.setText("0.0");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Média:");
+        jLabel16.setText("Valor de Média");
 
         lb_avg_value_memory.setText("0.0");
 
@@ -359,25 +376,27 @@ public class Tela1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(38, 38, 38)
-                        .addComponent(jLabel7))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(bt_read))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lb_title)
-                .addGap(93, 93, 93))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel7))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(lb_title))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(bt_read)))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,81 +417,70 @@ public class Tela1 extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(bt_read)
-                .addContainerGap())
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_readActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_readActionPerformed
-        Double min_cpu = 1.5;
-        Double max_cpu = 2.4;        
-        Double min_disk = 40.0;
-        Double max_disk = 224.0;        
-        Double min_memory = 1.8;
-        Double max_memory = 7.9;        
-        
-//        ArrayList<Double> array_cpu = new ArrayList<Double>();;
-//        ArrayList<Double> array_disk = new ArrayList<Double>();
-//        ArrayList<Double> array_memory = new ArrayList();
-        
-        
-        
-        
-        
-        Double random_double_memory = Math.random() * (max_memory - min_memory)+ min_memory;
-        Double random_double_disk = Math.random() * (max_disk - min_disk) + min_disk;       
-        Double random_double_cpu = Math.random()* (max_cpu - min_cpu) + min_cpu;
-               
-//        array_cpu.add(random_double_cpu);
-//        array_disk.add(random_double_disk);
-//        array_memory.add(random_double_memory);
-//        array_memory.add(random_double_disk);
+        run_counts += 1;
 
+        Double random_double_memory = Math.random() * (max_memory - min_memory) + min_memory;
+        Double random_double_disk = Math.random() * (max_disk - min_disk) + min_disk;
+        Double random_double_cpu = Math.random() * (max_cpu - min_cpu) + min_cpu;
         
-        
-        
-        
-        
-       
-        
-        lb_memory_value.setText( String.format("%.2f GB", random_double_memory));
+        total_memory += random_double_memory;
+        total_cpu += random_double_cpu;
+        total_disk += random_double_disk;
+                
+        if (random_double_memory > top_value_memory) {
+            top_value_memory = random_double_memory;
+        }if (random_double_memory < bottom_value_memory) {
+            bottom_value_memory = random_double_memory;
+        }
+
+        if (random_double_cpu > top_value_cpu) {
+            top_value_cpu = random_double_cpu;
+        }if (random_double_cpu < bottom_value_cpu) {
+            bottom_value_cpu = random_double_cpu;
+        }
+
+        if (random_double_disk > top_value_disk) {
+            top_value_disk = random_double_disk;
+        }if (random_double_disk < bottom_value_disk) {
+            bottom_value_disk = random_double_disk;
+        }
+                            
+        lb_memory_value.setText(String.format("%.2f GB", random_double_memory));
         lb_disk_value.setText(String.format("%.2f GB", random_double_disk));
-        lb_cpu_value.setText(String.format("%.2f Hz", random_double_cpu));                
+        lb_cpu_value.setText(String.format("%.2f Hz", random_double_cpu));
+                                
+        lb_max_value_memory.setText(String.format("%.2f GB", top_value_memory));    
+        lb_min_value_memory.setText(String.format("%.2f GB", bottom_value_memory));
+        lb_avg_value_memory.setText(String.format("%.2f GB", (total_memory/run_counts)));
         
-        //lb_max_value_memory.setText(String.valueOf(major));         
-//        lb_min_value_memory.setText();
-//        lb_avg_value_memory.setText();
-//        
-//        lb_max_value_disk.setText();
-//        lb_min_value_disk.setText();
-//        lb_avg_value_disk.setText();
-//        
-//        lb_max_value_cpu.setText();
-//        lb_min_value_cpu.setText();
-//        lb_avg_value_cpu.setText();
-        
-        pb_memory.setValue( (int)Math.round( (100 * random_double_memory)/max_memory ) );     
-        pb_memory.setStringPainted(true);
-        pb_disk.setValue( (int)Math.round( (100 * random_double_disk)/max_disk ) );            
-        pb_disk.setStringPainted(true);        
-        
-        //Consertar o calculo da proporção inversa de cpu
-        pb_cpu.setValue( (int)Math.round( (max_cpu *  100)/random_double_cpu ) );       
-        pb_cpu.setStringPainted(true);  
-                       
-        
+        lb_max_value_cpu.setText(String.format("%.2f Hz", top_value_cpu));
+        lb_min_value_cpu.setText(String.format("%.2f Hz", bottom_value_cpu));
+        lb_avg_value_cpu.setText(String.format("%.2f Hz", (total_cpu / run_counts)));
 
+        lb_max_value_disk.setText(String.format("%.2f GB", top_value_disk));
+        lb_min_value_disk.setText(String.format("%.2f GB", bottom_value_disk));
+        lb_avg_value_disk.setText(String.format("%.2f GB", (total_disk / run_counts)));
+
+        pb_memory.setValue((int) Math.round((100 * random_double_memory) / max_memory));
+        pb_memory.setStringPainted(true);
         
-        
-        
-               
-        
-        
-        
+        pb_disk.setValue((int) Math.round((100 * random_double_disk) / max_disk));
+        pb_disk.setStringPainted(true);
+     
+        pb_cpu.setValue((int) Math.round((100 * random_double_cpu) / max_cpu));
+        pb_cpu.setStringPainted(true);
+            
     }//GEN-LAST:event_bt_readActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -507,6 +515,7 @@ public class Tela1 extends javax.swing.JFrame {
                 new Tela1().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
